@@ -1,0 +1,12 @@
+<mat-card>
+	<h1>Hello {{settings && settings.name || 'World !!'}}</h1>
+	<p>
+		Addon successfully installed in application:
+		<strong>{{app.name || app.package}}</strong>
+	</p>
+	<button
+		mat-raised-button
+		color="primary"
+		(click)="openSetup.emit()"
+	>Change your name</button>
+</mat-card>

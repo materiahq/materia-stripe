@@ -1,0 +1,23 @@
+h2 {
+	font-size: 1rem;
+    font-weight: 200;
+    border-bottom: 1px solid #EEE;
+	padding: 4px 16px 0;
+	button {
+		margin: 0 24px;
+		mat-icon {
+			color: #555;
+			font-size: 1.2rem;
+			position: relative;
+			right: -3px;
+		}
+	}
+}
+
+.mat-dialog-content > div {
+	margin: 0 8px;
+	text-align: center;
+	mat-form-field {
+		text-align: center;
+	}
+}

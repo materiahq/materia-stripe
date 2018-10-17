@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+	<h2 mat-dialog-title fxLayout="row">
+		<span style="position: relative; top: 3px; left: 5px;">Boilerplate settings</span>
+		<span fxFlex></span>
+		<button tabindex="-1" mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+	</h2>
+
+	<mat-dialog-content>
+		<div>
+			<mat-form-field>
+				<input matInput type="text" placeholder="enter your name" formControlName="name">
+
+				<mat-error *ngIf="requiredError">
+					Name is a <strong>required</strong> parameter.
+				</mat-error>
+			</mat-form-field>
+			<h1><mat-icon [style.color]="form.touched && requiredError ? '#f44336' : '#555'">{{ form.touched && requiredError ? 'thumb_down' : 'thumb_up' }} </mat-icon></h1>
+			<p>This is a custom setup</p>
+		</div>
+	</mat-dialog-content>
+	<mat-dialog-actions fxLayout="row" style="border-top: 1px solid #EEE; margin-top: 16px; padding: 0 16px;">
+			<span fxFlex></span>
+			<button mat-button (click)="cancel.emit()" style="margin-right:8px;">
+				Cancel
+			</button>
+			<button mat-button color="primary" (click)="saveClick()" mat-autofocus>
+				Save
+			</button>
+		</mat-dialog-actions>
+</form>

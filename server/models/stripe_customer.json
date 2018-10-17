@@ -1,0 +1,102 @@
+{
+  "virtual": true,
+  "fields": [],
+  "relations": [],
+  "queries": [
+    {
+      "id": "list",
+      "type": "custom",
+      "opts": {
+        "action": "list",
+        "params": []
+      }
+    },
+    {
+      "id": "get",
+      "type": "custom",
+      "opts": {
+        "action": "get",
+        "params": [
+          {
+            "name": "id_customer",
+            "type": "number",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "getByUserId",
+      "type": "custom",
+      "opts": {
+        "action": "getByUserId",
+        "params": [
+          {
+            "name": "id_user",
+            "type": "number",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "create",
+      "type": "custom",
+      "opts": {
+        "action": "create",
+        "params": [
+          {
+            "name": "email",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "card_token",
+            "type": "text",
+            "required": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "getOrCreate",
+      "type": "custom",
+      "opts": {
+        "action": "getOrCreate",
+        "params": [
+          {
+            "name": "id_user",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "card_token",
+            "type": "text",
+            "required": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "update",
+      "type": "custom",
+      "opts": {
+        "action": "update",
+        "params": []
+      }
+    },
+    {
+      "id": "delete",
+      "type": "custom",
+      "opts": {
+        "action": "delete",
+        "params": []
+      }
+    }
+  ]
+}
