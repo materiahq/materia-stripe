@@ -33,6 +33,8 @@ module.exports = class StripeCustomerModel {
         if (user.id_stripe) {
           return this.get({
             id_customer: user.id_stripe
+          }).catch(e => {
+            return Promise.reject(user);
           });
         } else {
           return Promise.reject(user);
@@ -53,20 +55,20 @@ module.exports = class StripeCustomerModel {
       })
       .catch(user => {
         return this.stripe.customers
-		.create({
-		  email: user.email,
-		  source: params.card_token
-		})
-		.then(customer => {
-		  return this.app.entities
-			.get('user')
-			.getQuery('update')
-			.run({
-			  id_user: params.id_user,
-			  id_stripe: customer.id
-			})
-			.then(() => customer);
-		});
+          .create({
+            email: user.email,
+            source: params.card_token
+          })
+          .then(customer => {
+            return this.app.entities
+              .get('user')
+              .getQuery('update')
+              .run({
+                id_user: params.id_user,
+                id_stripe: customer.id
+              })
+              .then(() => customer);
+          });
       });
   }
 
