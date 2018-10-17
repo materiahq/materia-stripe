@@ -47,7 +47,7 @@ module.exports = class StripeCustomerModel {
       .then(customer => {
         return this.stripe.customers
           .createSource(customer.id, {
-            source: params.cardToken
+            source: params.card_token
           })
           .then(() => customer);
       })
@@ -55,7 +55,7 @@ module.exports = class StripeCustomerModel {
         return this.stripe.customers
 		.create({
 		  email: user.email,
-		  source: params.cardToken
+		  source: params.card_token
 		})
 		.then(customer => {
 		  return this.app.entities
