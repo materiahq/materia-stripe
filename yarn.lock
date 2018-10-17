@@ -192,7 +192,7 @@
   dependencies:
     tslib "^1.9.0"
 
-"@materia/addons@1.0.0-beta.2":
+"@materia/addons@^1.0.0-beta.2":
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@materia/addons/-/addons-1.0.0-beta.2.tgz#c1de5bf314e75915ca0dcb5ef98dcad0087ec155"
 
