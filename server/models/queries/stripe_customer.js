@@ -41,7 +41,7 @@ module.exports = class StripeCustomerModel {
   }
 
   getOrCreate(params) {
-    this.getByUserId({
+    return this.getByUserId({
       id_user: params.id_user
     })
       .then(customer => {
