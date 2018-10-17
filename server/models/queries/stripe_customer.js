@@ -31,11 +31,11 @@ module.exports = class StripeCustomerModel {
       })
       .then(user => {
         if (user.id_stripe) {
-          returnthis.get({
+          return this.get({
             id_customer: user.id_stripe
           });
         } else {
-          return Promise.reject(new Error('The user is not a customer'));
+          return Promise.reject(user);
         }
       });
   }
@@ -51,10 +51,10 @@ module.exports = class StripeCustomerModel {
           })
           .then(() => customer);
       })
-      .catch(err => {
+      .catch(user => {
         return this.stripe.customers
 		.create({
-		  email: params.email,
+		  email: user.email,
 		  source: params.cardToken
 		})
 		.then(customer => {

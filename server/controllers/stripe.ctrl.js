@@ -96,8 +96,7 @@ module.exports = class StripeCtrl {
       .get('stripe_customer')
       .getQuery('getOrCreate')
       .run({
-        id_user: user.id_user,
-        email: user.email,
+        id_user: req.user.id_user,
         card_token: card_token
       })
       .then(customer => {

@@ -70,11 +70,6 @@
             "required": true
           },
           {
-            "name": "email",
-            "type": "text",
-            "required": true
-          },
-          {
             "name": "card_token",
             "type": "text",
             "required": false
