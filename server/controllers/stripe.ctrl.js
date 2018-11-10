@@ -1,5 +1,5 @@
 var stripe = require('stripe');
-
+const vatCountries = require('../vat_countries');
 module.exports = class StripeCtrl {
   constructor(app) {
     this.app = app;
@@ -92,23 +92,40 @@ module.exports = class StripeCtrl {
 
   subscribe(req, res, next) {
     this.app.logger.log(JSON.stringify(req.user), JSON.stringify(req.body));
+    const params = {
+      id_user: req.user.id_user,
+      card_token: req.body.card_token,
+      name: req.body.name,
+      address: req.body.address,
+      country: req.body.country,
+      postal_code: req.body.postal_code,
+      state: req.body.state
+    };
+    if (req.body.tax_info) {
+      params.tax_info = req.body.tax_info
+    }
     this.app.entities
       .get('stripe_customer')
       .getQuery('getOrCreate')
-      .run({
-        id_user: req.user.id_user,
-        card_token: req.body.card_token
-      })
+      .run(params)
       .then(customer => {
-        return this.stripe.subscriptions.create({
+        console.log('customer', customer.sources.data[0]);
+        const sub = {
           customer: customer.id,
-          tax_percent: 8.5,
           items: req.body.plans.split(',').map(plan => {
             return {
               plan: plan
             };
           })
-        });
+        };
+        if (this.config.eu_vat && !req.body.vat_number) {
+          console.log('tax', vatCountries, customer.sources.data[0].address_country)
+          sub.tax_percent = vatCountries[customer.sources.data[0].address_country] || 0;
+        } else if (this.config.tax_percent) {
+          sub.tax_percent = this.config.tax_percent;
+        }
+        console.log('sub data', sub);
+        return this.stripe.subscriptions.create(sub);
       })
       .then(subscription => {
         this.app.logger.log(JSON.stringify(subscription));
@@ -117,8 +134,8 @@ module.exports = class StripeCtrl {
       .catch(err => {
         this.app.logger.log('ERROR' + JSON.stringify(err.message));
         res.status(400).json({
-			message: err.message
-		});
+          message: err.message
+        });
       });
   }
 };

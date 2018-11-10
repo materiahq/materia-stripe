@@ -12,12 +12,42 @@
         "type": "text",
         "required": true,
         "component": "input"
-	  },
-	  {
+      },
+      {
         "name": "card_token",
         "type": "text",
         "required": true,
         "component": "input"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "city",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "postal_code",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "state",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "country",
+        "type": "text",
+        "required": false
       }
     ]
   },
@@ -28,23 +58,22 @@
     "action": "getCustomer",
     "parent": "Stripe",
     "permissions": ["Authenticated"],
-    "params": [
-    ]
+    "params": []
   },
   {
-	"method": "put",
-	"url": "/user/subscriptions/:subscription",
-	"controller": "stripe",
-	"action": "updateSubscription",
-	"parent": "Stripe",
-	"permissions": ["Authenticated"],
-	"params": [
-		{
-			"name": "plans",
-			"type": "text",
-			"required": true
-		}
-	]
+    "method": "put",
+    "url": "/user/subscriptions/:subscription",
+    "controller": "stripe",
+    "action": "updateSubscription",
+    "parent": "Stripe",
+    "permissions": ["Authenticated"],
+    "params": [
+      {
+        "name": "plans",
+        "type": "text",
+        "required": true
+      }
+    ]
   },
   {
     "method": "delete",
@@ -54,15 +83,16 @@
     "parent": "Stripe",
     "permissions": ["Authenticated"],
     "params": [
-		{
-			"name": "cancel_at_period_end",
-			"type": "boolean",
-			"required": false
-		}, {
-			"name": "cancel_unsubscribe",
-			"type": "boolean",
-			"required": false
-		}
+      {
+        "name": "cancel_at_period_end",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "cancel_unsubscribe",
+        "type": "boolean",
+        "required": false
+      }
     ]
   }
 ]

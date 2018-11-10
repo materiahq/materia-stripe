@@ -42,6 +42,33 @@ module.exports = class StripeCustomerModel {
       });
   }
 
+  _getCustomerData(params) {
+    const result = {};
+    if (params.address && params.name) {
+      result.shipping = {
+        address: {
+          line1: params.address,
+          country: params.country,
+          city: params.city,
+          postal_code: params.postal_code,
+          state: params.state
+        },
+        name: params.name
+      };
+    }
+    if (params.tax_info) {
+      result.tax_info = this._getTaxObject(params.tax_info);
+    }
+    return result;
+  }
+
+  _getTaxObject(tax_info) {
+    return {
+      tax_id: tax_info,
+      type: 'vat'
+    };
+  }
+
   getOrCreate(params) {
     return this.getByUserId({
       id_user: params.id_user
@@ -51,24 +78,37 @@ module.exports = class StripeCustomerModel {
           .createSource(customer.id, {
             source: params.card_token
           })
-          .then(() => customer);
+          .then(() => {
+            if (!params.address && !params.country && !params.tax_info) {
+              return this.stripe.customers.retrieve(customer.id);
+            }
+            return this.stripe.customers.update(
+              customer.id,
+              this._getCustomerData(params)
+            );
+          });
       })
       .catch(user => {
-        return this.stripe.customers
-          .create({
-            email: user.email,
-            source: params.card_token
-          })
-          .then(customer => {
-            return this.app.entities
-              .get('user')
-              .getQuery('update')
-              .run({
-                id_user: params.id_user,
-                id_stripe: customer.id
-              })
-              .then(() => customer);
-          });
+        const baseCustomerData = {
+          email: user.email,
+          source: params.card_token
+        };
+        const customerData = Object.assign(
+          {},
+          baseCustomerData,
+          this._getCustomerData(params)
+        );
+
+        return this.stripe.customers.create(customerData).then(customer => {
+          return this.app.entities
+            .get('user')
+            .getQuery('update')
+            .run({
+              id_user: params.id_user,
+              id_stripe: customer.id
+            })
+            .then(() => customer);
+        });
       });
   }
 
