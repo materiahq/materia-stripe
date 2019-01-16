@@ -1,12 +1,34 @@
 <mat-card>
-	<h1>Hello {{settings && settings.name || 'World !!'}}</h1>
-	<p>
-		Addon successfully installed in application:
-		<strong>{{app.name || app.package}}</strong>
-	</p>
-	<button
-		mat-raised-button
-		color="primary"
-		(click)="openSetup.emit()"
-	>Change your name</button>
+  <mat-card-content
+    *ngIf="!settings || !settings.apikey; else displayView"
+    fxFlex
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    style="padding: 15px;"
+  >
+    <p>You need a Stripe account to use this addon.</p>
+    <button
+      mat-raised-button
+      (click)="openStripeSignup()"
+      class="stripe-button"
+    >
+      SIGNUP TO MAILJET
+    </button>
+    <p style="margin-top: 45px;">
+      Already have a Stripe account ? Please fill the settings with your
+      <span
+        class="link"
+        (click)="
+          openInBrowser.emit('https://dashboard.stripe.com/account/apikeys')
+        "
+        >Mailjet API keys</span
+      >:
+    </p>
+    <button mat-raised-button (click)="openSetup.emit()" class="stripe-button">
+      ADDON SETTINGS
+    </button>
+  </mat-card-content>
+  <ng-template #displayView>
+    <mat-card-content> <p>Stripe addon is configured and is working.</p> </mat-card-content>
+  </ng-template>
 </mat-card>

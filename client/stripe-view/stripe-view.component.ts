@@ -14,9 +14,14 @@ export class StripeViewComponent implements OnInit {
     @Input() settings;
 
     @Output() openSetup = new EventEmitter<void>();
+    @Output() openInBrowser: EventEmitter<string> = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() {
+    }
+
+    openStripeSignup() {
+        this.openInBrowser.emit('https://stripe.com');
     }
 }
