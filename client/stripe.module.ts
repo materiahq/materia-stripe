@@ -9,7 +9,9 @@ import {
   MatCardModule,
   MatIconModule,
   MatDialogModule,
-  MatInputModule
+  MatInputModule,
+  MatCheckboxModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { Addon } from '@materia/addons';
@@ -26,6 +28,8 @@ import { StripeSetupComponent } from './stripe-setup/stripe-setup.component';
     MatRippleModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatCheckboxModule,
+    MatRadioModule,
     MatCardModule,
     MatIconModule,
     MatDialogModule,

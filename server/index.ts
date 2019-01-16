@@ -3,14 +3,14 @@ export default class Stripe {
   public static logo =
     'https://materiahq.github.io/materia-website-content/logo/addons/stripe.png';
 
-  public static installSettings = [
-    {
-      name: 'apikey',
-      description: 'Enter your Stripe API Key',
-      type: 'string',
-      required: true
-    }
-  ];
+  // public static installSettings = [
+  //   {
+  //     name: 'apikey',
+  //     description: 'Enter your Stripe API Key',
+  //     type: 'string',
+  //     required: true
+  //   }
+  // ];
 
   constructor(private app, private config) {}
 

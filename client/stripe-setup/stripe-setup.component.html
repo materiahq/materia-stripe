@@ -1,30 +1,73 @@
 <form [formGroup]="form">
-	<h2 mat-dialog-title fxLayout="row">
-		<span style="position: relative; top: 3px; left: 5px;">Boilerplate settings</span>
-		<span fxFlex></span>
-		<button tabindex="-1" mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
-	</h2>
+  <h2 mat-dialog-title fxLayout="row">
+    <span style="position: relative; top: 3px; left: 5px;"
+      >Stripe settings</span
+    >
+    <span fxFlex></span>
+    <button tabindex="-1" mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
 
-	<mat-dialog-content>
-		<div>
-			<mat-form-field>
-				<input matInput type="text" placeholder="enter your name" formControlName="name">
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Stripe Secret Key"
+          formControlName="apikey"
+        />
 
-				<mat-error *ngIf="requiredError">
-					Name is a <strong>required</strong> parameter.
-				</mat-error>
-			</mat-form-field>
-			<h1><mat-icon [style.color]="form.touched && requiredError ? '#f44336' : '#555'">{{ form.touched && requiredError ? 'thumb_down' : 'thumb_up' }} </mat-icon></h1>
-			<p>This is a custom setup</p>
-		</div>
-	</mat-dialog-content>
-	<mat-dialog-actions fxLayout="row" style="border-top: 1px solid #EEE; margin-top: 16px; padding: 0 16px;">
-			<span fxFlex></span>
-			<button mat-button (click)="cancel.emit()" style="margin-right:8px;">
-				Cancel
-			</button>
-			<button mat-button color="primary" (click)="saveClick()" mat-autofocus>
-				Save
-			</button>
-		</mat-dialog-actions>
+        <mat-error *ngIf="apikeyRequiredError">
+          Secret key is a <strong>required</strong> parameter.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="vat"
+        >Include VAT in Stripe payment</mat-checkbox
+      >
+
+      <div style="margin-top: 8px;" *ngIf="form.controls['vat'].value">
+        <label>How do you want handle VAT/taxes ?</label>
+        <mat-radio-group
+          style="display: block; margin-top: 8px"
+          formControlName="vat_type"
+        >
+          <mat-radio-button value="eu"
+            >European Union VAT Rates</mat-radio-button
+          >
+          <mat-radio-button value="fixed">
+            <span *ngIf="form.controls['vat_type'].value !== 'fixed'"
+              >Fixed VAT rate (e.g. 20%)</span
+            >
+            <mat-form-field
+              style="margin-top: 6px"
+              *ngIf="form.controls['vat_type'].value === 'fixed'"
+            >
+              <input
+                matInput
+                type="number"
+                placeholder="Fixed VAT rate (e.g. 20%)"
+                formControlName="tax_percent"
+              />
+              <span matSuffix>%</span>
+            </mat-form-field>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions
+    fxLayout="row"
+    style="border-top: 1px solid #EEE; margin-top: 16px; padding: 0 16px;"
+  >
+    <span fxFlex></span>
+    <button mat-button color="primary" (click)="saveClick()" mat-autofocus>
+      Save
+    </button>
+    <button mat-button (click)="cancel.emit()" style="margin-right:8px;">
+      Cancel
+    </button>
+  </mat-dialog-actions>
 </form>

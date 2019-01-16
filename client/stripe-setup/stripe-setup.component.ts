@@ -24,19 +24,36 @@ export class StripeSetupComponent implements OnInit {
 
     form: FormGroup;
 
-    get requiredError() { return this.form.get('name').hasError('required'); }
+    get apikeyRequiredError() { return this.form.get('apikey').hasError('required'); }
 
     constructor() { }
 
     ngOnInit() {
         this.form = new FormGroup({
-            name: new FormControl(this.settings && this.settings.name ? this.settings.name : '', Validators.required)
+            apikey: new FormControl(this.settings && this.settings.apikey ? this.settings.apikey : '', Validators.required),
+            vat: new FormControl(
+                this.settings && (this.settings.tax_percent || this.settings.eu_vat) ? true : false
+            ),
+            vat_type: new FormControl(this.settings && this.settings.public_key ? this.settings.public_key : 'eu'),
+            tax_percent: new FormControl(this.settings && this.settings.public_key ? this.settings.public_key : '')
         });
     }
 
     saveClick() {
         if (this.form.valid) {
-            this.save.emit(this.form.value);
+            const res: any = {
+                apikey: this.form.value.apikey
+            };
+            if (this.form.value.vat) {
+                if (this.form.value.vat_type === 'eu') {
+                    res.eu_vat = true;
+                } else if (this.form.value.tax_percent) {
+                    res.tax_percent = this.form.value.tax_percent;
+                }
+            }
+            this.save.emit(res);
+        } else {
+            console.log(this.form.errors);
         }
     }
 }

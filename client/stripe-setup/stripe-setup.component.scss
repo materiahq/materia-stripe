@@ -16,8 +16,7 @@ h2 {
 
 .mat-dialog-content > div {
 	margin: 0 8px;
-	text-align: center;
-	mat-form-field {
-		text-align: center;
+	mat-checkbox, mat-radio-button, mat-form-field {
+		display: block;
 	}
 }
