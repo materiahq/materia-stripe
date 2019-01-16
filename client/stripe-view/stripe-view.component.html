@@ -12,7 +12,7 @@
       (click)="openStripeSignup()"
       class="stripe-button"
     >
-      SIGNUP TO MAILJET
+      SIGNUP TO STRIPE
     </button>
     <p style="margin-top: 45px;">
       Already have a Stripe account ? Please fill the settings with your
@@ -21,7 +21,7 @@
         (click)="
           openInBrowser.emit('https://dashboard.stripe.com/account/apikeys')
         "
-        >Mailjet API keys</span
+        >Stripe API keys</span
       >:
     </p>
     <button mat-raised-button (click)="openSetup.emit()" class="stripe-button">
