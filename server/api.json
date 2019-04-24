@@ -48,6 +48,10 @@
         "name": "country",
         "type": "text",
         "required": false
+      }, {
+        "name": "coupon",
+        "type": "text",
+        "required": false
       }
     ]
   },
@@ -94,5 +98,14 @@
         "required": false
       }
     ]
+  },
+  {
+    "method": "get",
+    "url": "/user/invoices",
+    "controller": "stripe",
+    "action": "getInvoices",
+    "parent": "Stripe",
+    "permissions": ["Authenticated"],
+    "params": []
   }
 ]

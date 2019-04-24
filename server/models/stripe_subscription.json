@@ -1,3 +1,98 @@
 {
-	"virtual": true
+	"virtual": true,
+	"queries": [
+		{
+			"id": "create",
+			"type": "custom",
+			"opts": {
+				"action": "create",
+				"params": [
+					{
+						"name": "id_customer",
+						"type": "text",
+						"required": true
+					},
+					{
+						"name": "customer_country",
+						"type": "text",
+						"required": false
+					},
+					{
+						"name": "vat_number",
+						"type": "text",
+						"required": false
+					},
+					{
+						"name": "plans",
+						"type": "text",
+						"required": true
+					},
+					{
+						"name": "coupon",
+						"type": "text",
+						"required": true
+					}
+				]
+			}
+		},
+		{
+			"id": "delete",
+			"type": "custom",
+			"opts": {
+				"action": "delete",
+				"params": [
+					{
+						"name": "id_subscription",
+						"type": "text",
+						"required": true
+					},
+					{
+						"name": "id_user",
+						"type": "number",
+						"required": true
+					},
+					{
+						"name": "cancel_unsubscribe",
+						"type": "boolean",
+						"required": false
+					},
+					{
+						"name": "cancel_at_period_end",
+						"type": "boolean",
+						"required": false
+					}
+				]
+			}
+		}, {
+			"id": "list",
+			"type": "custom",
+			"opts": {
+				"action": "list",
+				"params": []
+			}
+		}, {
+			"id": "update",
+			"type": "custom",
+			"opts": {
+				"action": "update",
+				"params": [
+					{
+						"name": "id_user",
+						"type": "number",
+						"required": true
+					},
+					{
+						"name": "id_subscription",
+						"type": "text",
+						"required": true
+					},
+					{
+						"name": "plans",
+						"type": "text",
+						"required": true
+					}
+				]
+			}
+		}
+	]
 }

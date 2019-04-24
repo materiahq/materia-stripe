@@ -1,0 +1,41 @@
+{
+    "virtual": true,
+    "fields": [],
+    "relations": [],
+    "queries": [
+        {
+            "id": "list",
+            "type": "custom",
+            "opts": {
+                "action": "list",
+                "params": [
+                    {
+                        "name": "customer",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "starting_after",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "ending_before",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "limit",
+                        "type": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "subscription",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            }
+        }
+    ]
+}

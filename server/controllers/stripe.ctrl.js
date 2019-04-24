@@ -23,71 +23,30 @@ module.exports = class StripeCtrl {
   }
 
   updateSubscription(req, res, next) {
-    this.app.entities
-      .get('stripe_customer')
-      .getQuery('getByUserId')
-      .run({
-        id_user: req.user.id_user
-      })
-      .then(customer => {
-        if (
-          customer.subscriptions.data.find(
-            sub => sub.id == req.params.subscription
-          )
-        ) {
-          return this.stripe.subscriptions.update(req.params.subscription, {
-            items: req.body.plans.split(',').map(plan => {
-              return {
-                plan: plan
-              };
-            })
-          });
-        } else {
-          return Promise.reject(new Error('Subscription not found'));
-        }
-      })
-      .then(() => {
-        res.status(200).send();
-      })
-      .catch(e => {
-        res.status(400).send(e);
-      });
+    this.entities.get('stripe_subscription').getQuery('update').run({
+      id_user: req.user.id_user,
+      id_subscription: req.params.subscription,
+      plans: req.body.plans
+    }).then(() => {
+      res.status(200).send();
+    })
+    .catch(e => {
+      res.status(400).send(e);
+    });
   }
 
   unsubscribe(req, res, next) {
-    this.app.entities
-      .get('stripe_customer')
-      .getQuery('getByUserId')
-      .run({
-        id_user: req.user.id_user
-      })
-      .then(customer => {
-        if (
-          customer.subscriptions.data.find(
-            sub => sub.id == req.params.subscription
-          )
-        ) {
-          if (req.query.cancel_unsubscribe) {
-            return this.stripe.subscriptions.update(req.params.subscription, {
-              cancel_at_period_end: false
-            });
-          } else if (req.query.cancel_at_period_end) {
-            return this.stripe.subscriptions.update(req.params.subscription, {
-              cancel_at_period_end: true
-            });
-          } else {
-            return this.stripe.subscriptions.del(req.params.subscription);
-          }
-        } else {
-          return Promise.reject(new Error('Subscription not found'));
-        }
-      })
-      .then(subscription => {
-        res.status(200).send(subscription);
-      })
-      .catch(e => {
-        res.status(400).send(e);
-      });
+    this.app.entities.get('stripe_subscription').getQuery('delete').run({
+      id_user: req.user.id_user,
+      cancel_at_period_end: !! req.query.cancel_at_period_end,
+      cancel_unsubscribe: !! req.query.cancel_unsubscribe,
+      id_subscription: req.params.subscription
+    }).then(subscription => {
+      res.status(200).send(subscription);
+    })
+    .catch(e => {
+      res.status(400).send(e);
+    });
   }
 
   subscribe(req, res, next) {
@@ -110,22 +69,13 @@ module.exports = class StripeCtrl {
       .run(params)
       .then(customer => {
         console.log('customer', customer.sources.data[0]);
-        const sub = {
-          customer: customer.id,
-          items: req.body.plans.split(',').map(plan => {
-            return {
-              plan: plan
-            };
-          })
-        };
-        if (this.config.eu_vat && !req.body.vat_number) {
-          console.log('tax', vatCountries, customer.sources.data[0].address_country)
-          sub.tax_percent = vatCountries[customer.sources.data[0].address_country] || 0;
-        } else if (this.config.tax_percent) {
-          sub.tax_percent = this.config.tax_percent;
-        }
-        console.log('sub data', sub);
-        return this.stripe.subscriptions.create(sub);
+        return this.app.entities.get('stripe_subscription').getQuery('create').run({
+          id_customer: customer.id,
+          customer_country: customer.sources.data[0].address_country,
+          vat_number: req.body.vat_number,
+          plans: req.body.plans,
+          coupon: req.body.coupon
+        })
       })
       .then(subscription => {
         this.app.logger.log(JSON.stringify(subscription));
@@ -137,5 +87,27 @@ module.exports = class StripeCtrl {
           message: err.message
         });
       });
+  }
+
+  getInvoices(req, res) {
+    this.app.entities
+      .get('stripe_customer')
+      .getQuery('getByUserId')
+      .run({
+        id_user: req.user.id_user
+      }).then(stripeUser => {
+        const params = Object.assign({}, req.query, {
+          customer: stripeUser.id
+        })
+        this.app.logger.log(params);
+        return this.app.entities.get('stripe_invoice').getQuery('list').run(params);
+      }).then(result => {
+        res.status(200).json(result);
+      }).catch(err => {
+        res.status(400).json({
+          error: true,
+          message: err.message
+        });
+      })
   }
 };
