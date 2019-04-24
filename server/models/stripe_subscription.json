@@ -30,7 +30,7 @@
 					{
 						"name": "coupon",
 						"type": "text",
-						"required": true
+						"required": false
 					}
 				]
 			}
