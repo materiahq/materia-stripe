@@ -1,6 +1,6 @@
 {
   "name": "@materia/stripe",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-rc.0",
   "description": "Stripe addon for Materia to enable payment in your Materia application.",
   "author": "team@getmateria.com",
   "license": "MIT",
