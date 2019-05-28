@@ -15,21 +15,25 @@ export default class Stripe {
   constructor(private app, private config) {}
 
   afterLoadEntities() {
-    const userEntity = this.app.entities.get('user');
-    return userEntity.addField({
-      name: 'id_stripe',
-      type: 'string',
-      required: false,
-      read: true,
-      write: true,
-      primary: false
-    }, {
-      apply: true,
-      db: false,
-      save: false,
-      history: false,
-      generateQueries: true
-    });
+    if ( ! this.app.database.disabled) {
+      const userEntity = this.app.entities.get('user');
+      return userEntity.addField({
+        name: 'id_stripe',
+        type: 'string',
+        required: false,
+        read: true,
+        write: true,
+        primary: false
+      }, {
+        apply: true,
+        db: false,
+        save: false,
+        history: false,
+        generateQueries: true
+      });
+    } else {
+      return Promise.resolve();
+    }
   }
 
   start() {}
