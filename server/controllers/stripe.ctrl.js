@@ -99,7 +99,6 @@ module.exports = class StripeCtrl {
         const params = Object.assign({}, req.query, {
           customer: stripeUser.id
         })
-        this.app.logger.log(params);
         return this.app.entities.get('stripe_invoice').getQuery('list').run(params);
       }).then(result => {
         res.status(200).json(result);

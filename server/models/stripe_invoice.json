@@ -12,7 +12,7 @@
                     {
                         "name": "customer",
                         "type": "text",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "starting_after",

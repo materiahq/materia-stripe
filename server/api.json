@@ -101,6 +101,23 @@
   },
   {
     "method": "get",
+    "url": "/coupons/verify",
+    "params": [
+      {
+        "name": "coupon",
+        "type": "text",
+        "required": true
+      }
+    ],
+    "query": {
+      "entity": "stripe_coupon",
+      "id": "get"
+    },
+    "permissions": ["Authenticated"],
+    "parent": "Stripe"
+  },
+  {
+    "method": "get",
     "url": "/user/invoices",
     "controller": "stripe",
     "action": "getInvoices",

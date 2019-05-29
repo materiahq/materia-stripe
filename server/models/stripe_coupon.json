@@ -1,90 +1,103 @@
 {
-    "virtual": true,
-    "fields": [],
-    "relations": [],
-    "queries": [
-        {
-			"id": "list",
-			"type": "custom",
-			"opts": {
-				"action": "list",
-				"params": [
-					{
-						"name": "ending_before",
-						"type": "text",
-						"required": false
-					}, {
-						"name": "starting_after",
-						"type": "text",
-						"required": false
-					}, {
-						"name": "limit",
-						"type": "number",
-						"required": false
-					}
-				]
-			}
-		},
-        {
-			"id": "create",
-			"type": "custom",
-			"opts": {
-                "action": "create",
-                "params": [
-					{
-						"name": "id",
-						"type": "text",
-						"required": false
-					}, {
-						"name": "duration",
-						"type": "text",
-						"required": true
-					}, {
-						"name": "amount_off",
-						"type": "number",
-						"required": false
-					}, {
-						"name": "currency",
-						"type": "text",
-						"required": false
-					}, {
-						"name": "duration_in_months",
-						"type": "number",
-						"required": false
-					}, {
-						"name": "max_redemptions",
-						"type": "number",
-						"required": false
-					}, {
-						"name": "name",
-						"type": "text",
-						"required": false
-					}, {
-						"name": "percent_off",
-						"type": "float",
-						"required": false
-					}, {
-						"name": "redeem_by",
-						"type": "number",
-						"required": false
-					}
-				]
-			}
-		},
-		{
-			"id": "delete",
-			"type": "custom",
-			"opts": {
-                "action": "delete",
-                "params": [
-					{
-						"name": "coupon",
-						"type": "text",
-						"required": true
-					}
-				]
-			}
-		}
-
+  "virtual": true,
+  "fields": [],
+  "relations": [],
+  "queries": [
+    {
+      "id": "get",
+      "type": "custom",
+      "opts": {
+        "action": "get",
+        "params": [
+          {
+            "name": "coupon",
+            "type": "text",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "list",
+      "type": "custom",
+      "opts": {
+        "action": "list",
+        "params": [
+          {
+            "name": "ending_before",
+            "type": "text",
+            "required": false
+          }, {
+            "name": "starting_after",
+            "type": "text",
+            "required": false
+          }, {
+            "name": "limit",
+            "type": "number",
+            "required": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "create",
+      "type": "custom",
+      "opts": {
+        "action": "create",
+        "params": [
+          {
+            "name": "id",
+            "type": "text",
+            "required": false
+          }, {
+            "name": "duration",
+            "type": "text",
+            "required": true
+          }, {
+            "name": "amount_off",
+            "type": "number",
+            "required": false
+          }, {
+            "name": "currency",
+            "type": "text",
+            "required": false
+          }, {
+            "name": "duration_in_months",
+            "type": "number",
+            "required": false
+          }, {
+            "name": "max_redemptions",
+            "type": "number",
+            "required": false
+          }, {
+            "name": "name",
+            "type": "text",
+            "required": false
+          }, {
+            "name": "percent_off",
+            "type": "float",
+            "required": false
+          }, {
+            "name": "redeem_by",
+            "type": "number",
+            "required": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "delete",
+      "type": "custom",
+      "opts": {
+        "action": "delete",
+        "params": [
+          {
+            "name": "coupon",
+            "type": "text",
+            "required": true
+          }
+        ]
+      }
+    }
 	]
 }

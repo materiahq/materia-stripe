@@ -1,4 +1,5 @@
 const stripe = require('stripe');
+const stripPagination = require('../lib/strip-pagination');
 
 module.exports = class StripeInvoiceModel {
   constructor(app, model) {
@@ -9,8 +10,11 @@ module.exports = class StripeInvoiceModel {
     this.stripe = stripe(this.config.apikey);
   }
 
+  listByCustomer(params) {
+    return this.stripe.invoices.list(stripPagination(params));
+  }
+
   list(params) {
-    this.app.logger.log('listing invoices' + JSON.stringify(params));
-    return this.stripe.invoices.list(params);
+    return this.stripe.invoices.list(stripPagination(params));
   }
 }

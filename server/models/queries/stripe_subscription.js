@@ -1,5 +1,6 @@
 const stripe = require('stripe');
 const vatCountries = require('../../vat_countries');
+const stripPagination = require('../lib/strip-pagination');
 
 module.exports = class StripeCustomerModel {
     constructor(app, model) {
@@ -11,7 +12,7 @@ module.exports = class StripeCustomerModel {
     }
 
     list(params) {
-        return stripe.subscriptions.list(params)
+        return this.stripe.subscriptions.list(stripPagination(params))
     }
 
     create(params) {
