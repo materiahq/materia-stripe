@@ -23,12 +23,12 @@ module.exports = class StripeCtrl {
   }
 
   updateSubscription(req, res, next) {
-    this.entities.get('stripe_subscription').getQuery('update').run({
+    this.app.entities.get('stripe_subscription').getQuery('update').run({
       id_user: req.user.id_user,
       id_subscription: req.params.subscription,
       plans: req.body.plans
-    }).then(() => {
-      res.status(200).send();
+    }).then(r => {
+      res.status(200).send(r);
     })
     .catch(e => {
       res.status(400).send(e);
