@@ -50,7 +50,6 @@ module.exports = class StripeCtrl {
   }
 
   subscribe(req, res, next) {
-    this.app.logger.log(JSON.stringify(req.user), JSON.stringify(req.body));
     const params = {
       id_user: req.user.id_user,
       card_token: req.body.card_token,
@@ -68,7 +67,6 @@ module.exports = class StripeCtrl {
       .getQuery('getOrCreate')
       .run(params)
       .then(customer => {
-        console.log('customer', customer.sources.data[0]);
         return this.app.entities.get('stripe_subscription').getQuery('create').run({
           id_customer: customer.id,
           customer_country: customer.sources.data[0].address_country,
@@ -78,11 +76,9 @@ module.exports = class StripeCtrl {
         })
       })
       .then(subscription => {
-        this.app.logger.log(JSON.stringify(subscription));
         res.status(200).json(subscription);
       })
       .catch(err => {
-        this.app.logger.log('ERROR' + JSON.stringify(err.message));
         res.status(400).json({
           message: err.message
         });

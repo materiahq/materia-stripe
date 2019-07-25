@@ -74,7 +74,6 @@ module.exports = class StripeCustomerModel {
 	}
 
 	update(params) {
-    this.app.logger.log('params: ' + JSON.stringify(params));
 		return this.app.entities
 			.get('stripe_customer')
 			.getQuery('getByUserId')
