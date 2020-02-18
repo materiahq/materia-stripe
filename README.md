@@ -1,17 +1,15 @@
-# Materia - Addon Boilerplate
+# Materia - Stripe addon
 
-Starter kit to create a Materia Addon.
+Stripe addon allow you to add payment in your Materia application using Stripe.
 
 ## Features
 
-- Minimal server
-- Default addon view (Angular 6 + Angular Material)
-- **Custom setup dialog**
-- Build system (@angular/cli + ng-packagr + TypeScript + Sass)
+- Subscriptions
+- European VAT & Fixed VAT
 
 ## Installation from NPM
 
-In your Materia application, run `yarn add @materia/addon-boilerplate`
+In your Materia application, run `yarn add @materia/stripe`
 
 Restart Materia Designer
 
@@ -20,8 +18,8 @@ Restart Materia Designer
 Clone this repository:
 
 ```
-git clone git@github.com:thyb/materia-addon-boilerplate.git
-cd materia-addon-boilerplate
+git clone git@github.com:thyb/materia-stripe.git
+cd materia-stripe
 ```
 
 Then install dependencies and build:
@@ -40,7 +38,7 @@ cd dist && npm link
 and in your materia application
 
 ```
-npm link @materia/addon-boilerplate
+npm link @materia/stripe
 ```
 
-then add `"@materia/addon-boilerplate": "^0.2.0"` in the dependencies of the package.json - it will let Materia knows of the existance of the addon.
+then add `"@materia/addon-stripe": "^1.0.0"` in the dependencies of the package.json - it will let Materia knows of the existance of the addon.
