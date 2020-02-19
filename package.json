@@ -26,15 +26,13 @@
     "clean": "rimraf dist"
   },
   "peerDependencies": {
-    "@angular/cdk": "~6.3.3",
-    "@angular/material": "~6.3.3",
     "@materia/addons": "1.0.0-beta.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.2",
     "@angular-devkit/build-ng-packagr": "~0.900.2",
     "@angular/animations": "~9.0.1",
-    "@angular/cdk": "~6.3.3",
+    "@angular/cdk": "~9.0.0",
     "@angular/cli": "~9.0.2",
     "@angular/common": "~9.0.1",
     "@angular/compiler": "~9.0.1",
@@ -43,7 +41,7 @@
     "@angular/forms": "~9.0.1",
     "@angular/http": "~6.0.9",
     "@angular/language-service": "~9.0.1",
-    "@angular/material": "~6.3.3",
+    "@angular/material": "~9.0.0",
     "@angular/platform-browser": "~9.0.1",
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@materia/addons": "1.0.0-beta.2",
