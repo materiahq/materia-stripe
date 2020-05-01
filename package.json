@@ -19,36 +19,35 @@
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
-    "build:prod": "npm run build:client && npm run build:server && npm run postbuild",
+    "build:prod": "npm run build:client && npm run build:server && ncp LICENSE ./dist/LICENSE && ncp README.md ./dist/README.md && npm run postbuild",
     "build:server": "tsc -p ./tsconfig.server.json && ncp ./server/models dist/server/models && ncp ./server/api.json ./dist/server/api.json && ncp ./server/controllers ./dist/server/controllers && ncp ./server/vat_countries.js ./dist/server/vat_countries.js",
     "build:client": "ng build --prod",
     "postbuild": "node scripts/postbuild.js",
     "clean": "rimraf dist"
   },
-  "peerDependencies": {
-    "@materia/addons": "1.0.0-beta.2"
+  "dependencies": {
+    "stripe": "^6.12.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.2",
-    "@angular-devkit/build-ng-packagr": "~0.900.2",
-    "@angular/animations": "~9.0.1",
-    "@angular/cdk": "~9.0.0",
-    "@angular/cli": "~9.0.2",
-    "@angular/common": "~9.0.1",
-    "@angular/compiler": "~9.0.1",
-    "@angular/compiler-cli": "~9.0.1",
-    "@angular/core": "~9.0.1",
-    "@angular/forms": "~9.0.1",
-    "@angular/http": "~6.0.9",
-    "@angular/language-service": "~9.0.1",
-    "@angular/material": "~9.0.0",
-    "@angular/platform-browser": "~9.0.1",
-    "@angular/platform-browser-dynamic": "~9.0.1",
+    "@angular-devkit/build-angular": "~0.901.4",
+    "@angular-devkit/build-ng-packagr": "~0.901.4",
+    "@angular/animations": "~9.1.4",
+    "@angular/cdk": "~9.2.2",
+    "@angular/cli": "~9.1.4",
+    "@angular/common": "~9.1.4",
+    "@angular/compiler": "~9.1.4",
+    "@angular/compiler-cli": "~9.1.4",
+    "@angular/core": "~9.1.4",
+    "@angular/forms": "~9.1.4",
+    "@angular/language-service": "~9.1.4",
+    "@angular/material": "~9.2.2",
+    "@angular/platform-browser": "~9.1.4",
+    "@angular/platform-browser-dynamic": "~9.1.4",
     "@materia/addons": "1.0.0-beta.2",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^13.7.2",
-    "codelyzer": "~4.2.1",
+    "codelyzer": "^5.1.2",
     "core-js": "^2.5.4",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -60,16 +59,13 @@
     "ncp": "^2.0.0",
     "ng-packagr": "^9.0.0",
     "protractor": "~5.3.0",
-    "rxjs": "~6.0.0",
+    "rxjs": "~6.5.5",
     "ts-node": "~5.0.1",
     "tsickle": "0.38.0",
-    "tslib": "^1.7.1",
+    "tslib": "^1.11.1",
     "tslint": "~5.9.1",
     "typescript": "^3.7.5",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.10.3"
   },
-  "materia": true,
-  "dependencies": {
-    "stripe": "^6.12.1"
-  }
+  "materia": true
 }
