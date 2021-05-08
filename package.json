@@ -57,7 +57,7 @@
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ncp": "^2.0.0",
-    "ng-packagr": "^9.0.0",
+    "ng-packagr": "^10.1.1",
     "protractor": "~5.3.0",
     "rxjs": "~6.5.5",
     "ts-node": "~5.0.1",
